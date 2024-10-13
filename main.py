@@ -8,7 +8,6 @@ from pathlib import Path
 from datetime import datetime
 from openai import OpenAI
 
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -214,7 +213,7 @@ if __name__ == "__main__":
         real_rating = user_data.iloc[-1]["rating"]
         real_ratings.append(real_rating)
 
-        # Single Agent
+        # Single Agent(Zero-shot) Recommendation
         single_response = recsys.get_single_agent_recommendation(user_prompt)
         if single_response:
             try:
@@ -231,7 +230,7 @@ if __name__ == "__main__":
         else:
             logging.error(f"No response received from single agent for user {user}")
 
-        # Multi-Agent
+        # Multi-Agent Recommendation
         multi_response = recsys.get_multi_agent_recommendation(user_prompt)
         if multi_response:
             try:
@@ -252,6 +251,7 @@ if __name__ == "__main__":
         elapsed_time = end - start
         elapsed_time = round(elapsed_time, 2)
         logging.info(f"Total time taken: {elapsed_time} seconds.")
+
         # Save the results to a CSV file including user_id, real_rating, single_agent_rating, multi_agent_rating, elapsed_time
         results = pd.DataFrame(
             {
@@ -270,9 +270,9 @@ if __name__ == "__main__":
         csv_file = csv_dir / "metrics.csv"
         results.to_csv(
             csv_dir / csv_file,
-            mode="a",  # Append mode
+            mode="a",
             header=not os.path.exists(
                 csv_dir / csv_file
-            ),  # Write header only if file doesn't exist
+            ),
             index=False,
         )
