@@ -16,7 +16,6 @@ BASE_DIR = Path(__file__).resolve().parent
 
 class LLMRecSys:
     def __init__(self, api_key: str, api_model: str) -> None:
-        assert api_key, "Please provide your OpenAI API key."
         self.client = OpenAI(api_key=api_key)
         self.model = api_model
         self.df_review = None
