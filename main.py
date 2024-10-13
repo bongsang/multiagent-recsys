@@ -265,8 +265,10 @@ if __name__ == "__main__":
             }
         )
 
+        # Save the results to a CSV file
         csv_dir = BASE_DIR / "results"
-        csv_file = csv_dir / "metrics_20tests.csv"
+        os.makedirs(csv_dir, exist_ok=True)
+        csv_file = csv_dir / "metrics.csv"
         results.to_csv(
             csv_dir / csv_file,
             mode="a",  # Append mode
