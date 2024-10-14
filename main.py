@@ -180,8 +180,8 @@ if __name__ == "__main__":
     print("Starting the recommendation system.")
 
     # RecSys Temporary API Key
-    OPEN_API_KEY = None
-    assert OPEN_API_KEY, "Please provide your OpenAI API key."
+    OPENAI_API_KEY = None
+    assert OPENAI_API_KEY, "Please provide your OpenAI API key."
 
     num_tests = 20
     api_models = [
@@ -192,7 +192,7 @@ if __name__ == "__main__":
         "gpt-3.5-turbo",
     ]
     recsys = LLMRecSys(
-        api_key=OPEN_API_KEY,
+        api_key=OPENAI_API_KEY,
         api_model=api_models[0],  # Using "gpt-4o-mini"
     )
     recsys.load_data()
@@ -271,8 +271,6 @@ if __name__ == "__main__":
         results.to_csv(
             csv_dir / csv_file,
             mode="a",
-            header=not os.path.exists(
-                csv_dir / csv_file
-            ),
+            header=not os.path.exists(csv_dir / csv_file),
             index=False,
         )
